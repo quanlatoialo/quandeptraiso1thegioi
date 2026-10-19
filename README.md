@@ -1,5 +1,5 @@
 # GAMER 2 GAMER (G2G) — P2P Gaming Escrow Marketplace
-**Graduation Capstone Project — Đồ Án Tốt Nghiệp**
+**Graduation Capstone Project — Đồ Án**
 
 A full-stack, production-grade Peer-to-Peer (P2P) gaming marketplace with two-sided confirmation escrow custody, balanced double-entry accounting ledger, and dispute arbitration console.
 
