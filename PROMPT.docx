@@ -1,0 +1,438 @@
+Bạn là Senior Full-stack Developer, Software Architect và UI/UX Designer. Hãy trực tiếp xây dựng website đồ án “Gamer 2 Gamer”, một nền tảng trung gian kết nối Customer với Seller và Booster trong lĩnh vực gaming.
+
+Tôi cần một ứng dụng chạy được, có frontend, backend, cơ sở dữ liệu và luồng nghiệp vụ hoàn chỉnh. Không chỉ tạo giao diện mẫu hoặc dừng ở việc đề xuất kế hoạch.
+
+## 1. Bối cảnh và phạm vi đề tài
+
+Gamer 2 Gamer phục vụ thị trường quốc tế, ưu tiên châu Âu và hỗ trợ người dùng Bắc Mỹ.
+
+Các đối tượng chính:
+
+- Customer: mua tài khoản game, vật phẩm hoặc dịch vụ cày thuê.
+- Seller: đăng bán tài khoản và vật phẩm.
+- Booster: đăng dịch vụ cày thuê.
+- Admin: quản lý nền tảng, người dùng, offer và xử lý tranh chấp.
+
+Website chỉ đóng vai trò kết nối giao dịch, quản lý ví và giữ tiền trung gian. Không tích hợp vào máy chủ game, không xây dựng bot chơi game, không tự động đăng nhập tài khoản game.
+
+Hai nghiệp vụ bắt buộc của đề tài:
+
+1. Đăng và quản lý offer, gồm tiền tệ, danh mục, số lượng tồn, số lượng mua tối thiểu và thời hạn tối đa 30 ngày.
+2. Customer nạp ví và thanh toán đơn hàng. Tiền được giữ trung gian, chỉ chuyển cho Seller/Booster khi cả hai bên xác nhận hoàn tất.
+
+Không tự thêm AI, blockchain hoặc chức năng ngoài phạm vi trước khi hoàn thành các nghiệp vụ trên.
+
+## 2. Công nghệ và tổ chức dự án
+
+Sử dụng:
+
+- Frontend: Next.js với React, App Router và Tailwind CSS.
+- Backend: Node.js và Express.js.
+- Database: MongoDB Atlas, sử dụng Mongoose.
+- Ngôn ngữ: JavaScript.
+- Môi trường phát triển: VS Code.
+- Kiểm tra dữ liệu: Zod hoặc thư viện tương đương.
+- API: REST.
+
+Phân chia rõ:
+
+- `frontend/`: giao diện Next.js.
+- `backend/`: API, xác thực và toàn bộ nghiệp vụ giao dịch.
+- `docs/`: tài liệu kiến trúc, API, mô hình dữ liệu và kịch bản kiểm thử.
+
+Express phải là nguồn xử lý nghiệp vụ chính; không triển khai trùng logic ví và đơn hàng ở Next.js.
+
+Nếu đã có mã nguồn, hãy kiểm tra cấu trúc, thư viện và chức năng hiện tại trước khi sửa. Tái sử dụng phần phù hợp, không tự ý xóa hoặc xây dựng lại toàn bộ dự án.
+
+Chọn phiên bản thư viện ổn định, tương thích với nhau; ghi lại phiên bản thực tế trong README và lockfile.
+
+## 3. Yêu cầu giao diện
+
+Thiết kế theo phong cách gaming marketplace hiện đại, chuyên nghiệp, rõ ràng và đáng tin cậy.
+
+Định hướng:
+
+- Nền xanh đen hoặc xám than, chữ sáng, màu nhấn tím hoặc xanh cyan được sử dụng tiết chế.
+- Typography dễ đọc; bố cục thoáng; phân cấp thông tin rõ ràng.
+- Card offer có ảnh, tên game, loại offer, khu vực/server, giá, tồn kho và thông tin người bán.
+- Không lạm dụng neon, gradient, hiệu ứng kính, bóng đổ hoặc chuyển động.
+- Dùng icon đồng bộ; không dùng emoji thay icon chức năng.
+- Không sao chép logo, tài sản hoặc bố cục nguyên bản của các marketplace khác.
+- Responsive cho desktop, tablet và điện thoại.
+- Có trạng thái loading, empty, error, success và disabled.
+- Hỗ trợ bàn phím, focus rõ ràng, label cho biểu mẫu và độ tương phản phù hợp.
+
+Ngôn ngữ giao diện mặc định là tiếng Anh. Tài liệu hướng dẫn và giải thích mã nguồn có thể viết bằng tiếng Việt.
+
+Header gồm:
+
+- Logo Gamer 2 Gamer.
+- Games.
+- Accounts.
+- Items.
+- Boosting.
+- Search.
+- Become a Seller.
+- Wallet.
+- Notifications.
+- Account.
+
+Homepage gồm:
+
+- Hero với thông điệp và nút khám phá offer.
+- Tìm kiếm theo game hoặc dịch vụ.
+- Danh mục Accounts, Items, Boosting.
+- Featured Games.
+- Latest Offers lấy từ database.
+- Phần “How it works” giải thích đặt hàng, giữ tiền và xác nhận hoàn tất.
+- Footer với hướng dẫn, hỗ trợ và chính sách mẫu được ghi rõ là nội dung demo.
+
+Không hiển thị số lượng giao dịch, đánh giá hoặc chứng nhận bảo đảm không có dữ liệu chứng minh.
+
+## 4. Tài khoản và phân quyền
+
+Triển khai:
+
+- Đăng ký, đăng nhập, đăng xuất.
+- Hồ sơ cá nhân.
+- Đổi mật khẩu.
+- Phân quyền Customer, Seller, Booster và Admin.
+- Cho phép một tài khoản vừa mua hàng vừa có vai trò Seller/Booster.
+- Người dùng gửi yêu cầu trở thành Seller/Booster; Admin duyệt.
+- Khóa tài khoản và ghi nhận lý do.
+
+Mọi quyền truy cập phải được kiểm tra ở backend. Không chỉ ẩn nút trên frontend.
+
+Người dùng chỉ được truy cập ví, đơn hàng và dữ liệu riêng thuộc quyền của mình. Admin có các quyền quản trị được xác định rõ.
+
+## 5. Quản lý game và offer
+
+Admin quản lý danh mục game, loại offer và khu vực/server phù hợp.
+
+Seller/Booster được:
+
+- Tạo offer.
+- Xem danh sách offer của mình.
+- Sửa offer.
+- Tạm dừng và tiếp tục bán.
+- Điều chỉnh tồn kho.
+- Gia hạn hoặc đăng lại offer đã hết hạn.
+- Xem đơn hàng liên quan.
+
+Một offer cần có:
+
+- Tiêu đề.
+- Game.
+- Loại: Account, Item hoặc Boosting.
+- Mô tả.
+- Hình ảnh.
+- Region/server khi phù hợp.
+- Đơn giá.
+- Đơn vị tiền tệ.
+- Số lượng tồn.
+- Số lượng mua tối thiểu, tức `minPerOrder`.
+- Thời gian giao dự kiến.
+- Chủ sở hữu.
+- Ngày đăng.
+- Ngày hết hạn.
+- Trạng thái: Draft, Active, Paused, Expired hoặc Sold Out.
+
+Quy tắc:
+
+- Thời hạn một lần đăng hoặc gia hạn không vượt quá 30 ngày tính từ thời điểm kích hoạt tương ứng.
+- `minPerOrder` là số nguyên dương.
+- Giá phải lớn hơn 0.
+- Không cho mua dưới số lượng tối thiểu hoặc vượt tồn khả dụng.
+- Không cho mua offer hết hạn, bị tạm dừng hoặc không còn hàng.
+- Backend kiểm tra hết hạn tại thời điểm mua; không phụ thuộc hoàn toàn vào tác vụ chạy nền.
+- Offer Account có thể mặc định số lượng 1; Item và Boosting sử dụng đơn vị bán được định nghĩa rõ.
+- Không cho chủ offer tự đặt mua offer của mình.
+
+Trang danh sách hỗ trợ tìm kiếm, lọc theo game, loại, giá, region và sắp xếp theo giá hoặc thời gian đăng, kèm phân trang.
+
+## 6. Ví và nạp tiền
+
+Triển khai ví với:
+
+- Số dư khả dụng.
+- Khoản đang được giữ cho các giao dịch mua.
+- Khoản người bán đang chờ được nhận.
+- Lịch sử giao dịch.
+
+Phải phân biệt tiền thực sự đã ghi có vào ví với khoản thu nhập đang chờ; không cộng trùng.
+
+Đối với bản đồ án:
+
+- Mặc định triển khai nạp tiền mô phỏng qua một payment adapter.
+- Giao diện phải ghi rõ “Demo payment — no real money”.
+- Chỉ bật adapter mô phỏng trong môi trường phát triển/demo.
+- Không tạo nút nạp tiền giả có thể sử dụng như một cổng thanh toán thật trên production.
+- Không cần khóa dịch vụ trả phí để chạy toàn bộ bản demo.
+
+Thiết kế adapter để có thể thay bằng nhà cung cấp thanh toán sau này. Nếu có tích hợp sandbox, phải kiểm tra chữ ký webhook và xử lý sự kiện trùng; không ghi có ví chỉ dựa trên chuyển hướng thành công ở trình duyệt.
+
+Tiền tệ:
+
+- Mỗi offer và giao dịch phải có mã tiền tệ.
+- Bản MVP sử dụng EUR để hoàn thành luồng giao dịch nhất quán.
+- Không tự quy đổi ngoại tệ.
+- Nếu mở rộng nhiều tiền tệ, tách số dư theo tiền tệ và không cho thanh toán chéo tiền tệ khi chưa có cơ chế chuyển đổi.
+
+Lưu số tiền theo đơn vị nhỏ nhất bằng số nguyên. Không dùng số thực để tính tiền.
+
+Mọi biến động tài chính phải có ledger phục vụ đối soát, không chỉ cập nhật trực tiếp một trường balance.
+
+Rút tiền thật không thuộc phạm vi bắt buộc của MVP. Không tạo giao diện khiến người dùng hiểu nhầm rằng hệ thống đã hỗ trợ payout thực tế.
+
+## 7. Đặt hàng và giữ tiền trung gian
+
+Luồng chuẩn:
+
+1. Customer chọn offer và số lượng.
+2. Backend kiểm tra offer, tồn kho, thời hạn và số dư ví.
+3. Backend tính lại tổng tiền từ dữ liệu đáng tin cậy.
+4. Hệ thống tạo đơn và chuyển tiền từ số dư khả dụng sang khoản giữ trung gian.
+5. Seller/Booster thực hiện giao hàng hoặc dịch vụ.
+6. Seller/Booster xác nhận đã hoàn tất phần việc.
+7. Customer xác nhận đã nhận hàng hoặc dịch vụ.
+8. Chỉ khi có đủ hai xác nhận hợp lệ và đơn không bị tranh chấp, hệ thống mới giải ngân và hoàn tất đơn hàng.
+
+Không tự giải ngân chỉ vì hết thời gian hoặc vì một bên đã xác nhận.
+
+Trạng thái đơn hàng đề xuất:
+
+- Pending Payment.
+- Funded.
+- In Progress.
+- Awaiting Customer Confirmation.
+- Completed.
+- Disputed.
+- Cancelled.
+- Refunded.
+
+Trạng thái khoản giữ tiền đề xuất:
+
+- Held.
+- Released.
+- Refunded.
+
+Ghi riêng thời điểm xác nhận của người bán và khách hàng. Định nghĩa rõ các chuyển trạng thái được phép và vai trò được thực hiện từng hành động.
+
+Yêu cầu tính nhất quán:
+
+- Dùng MongoDB transaction cho thao tác liên quan đồng thời đến ví, ledger, đơn và tồn kho.
+- Dùng cập nhật có điều kiện để ngăn bán vượt tồn và chi vượt số dư.
+- Có idempotency cho thao tác thanh toán, xác nhận, hoàn tiền và giải ngân.
+- Không giải ngân hoặc hoàn tiền cùng một khoản hai lần.
+- Hai request đồng thời không được tạo hai kết quả tài chính.
+- Lưu snapshot thông tin offer và giá tại thời điểm đặt hàng.
+- Một request thất bại phải rollback đầy đủ.
+- Không tin số tiền hoặc trạng thái do frontend gửi lên.
+
+Bản MVP có thể dùng phí nền tảng bằng 0. Nếu triển khai phí, phải hiển thị rõ trước khi mua và lưu snapshot phí vào đơn; tổng ghi nợ và ghi có phải cân bằng.
+
+## 8. Hủy đơn và tranh chấp
+
+Triển khai chính sách hủy đơn rõ ràng theo trạng thái.
+
+- Đơn chưa thanh toán có thể hủy.
+- Đơn đã giữ tiền phải tuân theo điều kiện hủy và hoàn tiền được định nghĩa.
+- Không tự động cho khách hủy và hoàn tiền sau khi đã nhận hàng.
+- Khi có tranh chấp, tiền tiếp tục bị giữ và chặn giải ngân thông thường.
+- Hai bên được gửi nội dung và bằng chứng.
+- Admin được xem lịch sử, đưa ra quyết định và ghi rõ lý do.
+
+Để giữ đúng phạm vi đồ án, phiên bản đầu chỉ cần quyết định hoàn tiền toàn bộ hoặc giải ngân toàn bộ. Không cần chia tiền hoặc hoàn tiền một phần.
+
+Giải ngân khi Admin xử lý tranh chấp là luồng ngoại lệ, phải tách khỏi luồng hoàn tất thông thường yêu cầu hai bên xác nhận.
+
+Chỉ hoàn lại tồn kho khi hợp lý với trạng thái giao hàng và loại offer; không tự đưa một tài khoản đã bàn giao trở lại trạng thái có thể bán.
+
+## 9. Giao tiếp và đánh giá
+
+Cung cấp trao đổi trong từng đơn hàng:
+
+- Customer và Seller/Booster của đơn được gửi, đọc tin nhắn.
+- Admin được xem khi xử lý tranh chấp theo quyền được cấp.
+- Người ngoài không được đọc hội thoại bằng cách đổi ID.
+- Có thông báo khi nhận đơn, giao hàng, xác nhận hoặc phát sinh tranh chấp.
+
+Customer chỉ được đánh giá sau khi đơn hoàn tất và chỉ đánh giá một lần cho mỗi đơn.
+
+Ưu tiên bảo đảm luồng cơ bản chạy đúng; có thể dùng polling trước khi bổ sung realtime.
+
+## 10. Các trang cần triển khai
+
+Trang công khai:
+
+- Homepage.
+- Games.
+- Offer Listing.
+- Offer Detail.
+- Seller Profile.
+- Login và Register.
+- How It Works.
+
+Khu vực Customer:
+
+- Dashboard.
+- Wallet và nạp tiền demo.
+- Transaction History.
+- My Orders.
+- Order Detail.
+- Tin nhắn trong đơn.
+- Profile và Security.
+
+Khu vực Seller/Booster:
+
+- Dashboard.
+- My Offers.
+- Create/Edit Offer.
+- Sales Orders.
+- Earnings.
+- Quản lý tồn kho.
+
+Khu vực Admin:
+
+- Dashboard với dữ liệu thực từ database.
+- User Management.
+- Seller/Booster Applications.
+- Game và Category Management.
+- Offer Management.
+- Order Management.
+- Dispute Management.
+- Wallet Transactions.
+- Audit Logs.
+
+Tất cả nút và biểu mẫu chính phải có hành vi thật. Nếu tính năng chưa được triển khai, ghi rõ trạng thái; không hiển thị thành công giả.
+
+## 11. Database và API
+
+Thiết kế các collection cần thiết, dự kiến gồm:
+
+- users.
+- sellerApplications.
+- games.
+- categories.
+- offers.
+- wallets.
+- ledgerTransactions.
+- orders.
+- escrowRecords.
+- orderMessages.
+- disputes.
+- reviews.
+- notifications.
+- auditLogs.
+
+Có thể điều chỉnh cấu trúc nếu giải thích được lý do.
+
+Bổ sung index cho tìm kiếm, truy vấn đơn hàng, phân trang và các ràng buộc duy nhất như email, mã giao dịch ngoài, idempotency key.
+
+API cần có:
+
+- Validation đầu vào.
+- Xác thực và kiểm tra quyền sở hữu.
+- Mã lỗi rõ ràng.
+- Phân trang, lọc, sắp xếp.
+- Error handler tập trung.
+- Tài liệu OpenAPI hoặc tập request có thể chạy được.
+
+Không dùng cơ chế tự xóa theo TTL cho đơn, ledger hoặc bản ghi tài chính cần lưu lịch sử.
+
+## 12. Bảo mật
+
+- Hash mật khẩu bằng thư viện phù hợp.
+- Không lưu mật khẩu dạng rõ.
+- Bảo vệ phiên đăng nhập; không lưu token nhạy cảm trong localStorage.
+- Nếu dùng cookie, cấu hình HttpOnly, Secure theo môi trường, SameSite và bảo vệ CSRF phù hợp.
+- Rate limit đăng nhập và các thao tác nhạy cảm.
+- Chống NoSQL injection, mass assignment và truy cập tài nguyên trái phép.
+- Kiểm tra loại, kích thước và quyền truy cập file tải lên.
+- Không đưa secret vào frontend, mã nguồn hoặc log.
+- Không ghi thông tin đăng nhập tài khoản game vào log hoặc chat thông thường.
+- Nếu cần giao thông tin bí mật trong demo, sử dụng dữ liệu giả và vùng bàn giao có kiểm soát quyền truy cập.
+- Audit log cho các thao tác quản trị và thay đổi tài chính.
+
+## 13. Kiểm thử bắt buộc
+
+Viết và chạy các kiểm thử có ý nghĩa cho:
+
+- Đăng ký, đăng nhập và phân quyền.
+- Không thể sửa offer của người khác.
+- Tạo offer đúng và sai dữ liệu.
+- Offer hết hạn, thiếu stock hoặc mua dưới mức tối thiểu.
+- Ví không đủ số dư.
+- Nạp tiền demo và ghi nhận ledger.
+- Thanh toán giữ tiền đúng.
+- Một bên xác nhận chưa được giải ngân.
+- Hai bên xác nhận mới được hoàn tất.
+- Đơn đang tranh chấp không được giải ngân thông thường.
+- Hoàn tiền và giải ngân không bị lặp.
+- Hai khách mua đồng thời sản phẩm cuối cùng.
+- Hai yêu cầu thanh toán đồng thời từ cùng một ví.
+- Người ngoài không xem được đơn, ví hoặc tin nhắn.
+- Các luồng hủy đơn, hoàn tiền và điều chỉnh tồn kho.
+- Responsive và điều hướng các màn hình chính.
+
+Chạy kiểm thử transaction trên MongoDB có hỗ trợ transaction. Nếu chạy local, cung cấp cấu hình replica set phù hợp; không âm thầm thay transaction bằng các cập nhật rời rạc.
+
+Phân biệt rõ kiểm thử đã chạy, chưa chạy và bị chặn. Không tự tuyên bố tất cả kiểm thử đều thành công khi chưa thực hiện.
+
+## 14. Dữ liệu demo và tài liệu bàn giao
+
+Tạo seed data có thể chạy lại, gồm:
+
+- Tài khoản Admin.
+- Customer.
+- Seller.
+- Booster.
+- Game, danh mục và offer mẫu.
+- Các đơn mẫu ở nhiều trạng thái.
+
+Ghi rõ dữ liệu mô phỏng. Seed không được xóa dữ liệu có sẵn nếu chưa được yêu cầu.
+
+Bàn giao:
+
+- Mã nguồn đầy đủ frontend và backend.
+- `.env.example` không chứa secret.
+- Hướng dẫn cài đặt và chạy từ môi trường mới.
+- Hướng dẫn cấu hình MongoDB.
+- Lệnh seed và chạy test.
+- Tài khoản demo dành riêng cho môi trường phát triển.
+- Tài liệu API.
+- Sơ đồ kiến trúc.
+- Mô hình dữ liệu và quan hệ.
+- Sơ đồ trạng thái đơn hàng.
+- Sơ đồ trình tự đặt hàng, giữ tiền và giải ngân.
+- Hướng dẫn demo phục vụ bảo vệ đồ án.
+- Danh sách giới hạn thực tế của phiên bản hoàn thành.
+
+## 15. Cách thực hiện
+
+Trước tiên, kiểm tra workspace và mã nguồn hiện có, sau đó trình bày ngắn gọn:
+
+1. Kiến trúc sẽ sử dụng.
+2. Mô hình dữ liệu cốt lõi.
+3. Quy tắc chuyển trạng thái đơn và giữ tiền.
+4. Các bước triển khai.
+
+Sau đó bắt đầu viết mã ngay, không dừng ở kế hoạch.
+
+Ưu tiên hoàn thành một luồng xuyên suốt:
+
+Đăng ký → Seller tạo offer → Customer nạp ví demo → Đặt hàng → Giữ tiền → Seller hoàn tất → Customer xác nhận → Giải ngân → Xem lịch sử.
+
+Khi luồng này hoạt động ổn định, tiếp tục hoàn thiện các màn hình và chức năng quản trị.
+
+Tự quyết định các chi tiết triển khai thông thường. Chỉ hỏi khi thiếu thông tin thực sự ngăn cản tiến độ. Nếu thiếu khóa dịch vụ bên ngoài, hoàn thiện adapter demo được ghi nhãn rõ và hướng dẫn cấu hình thay thế.
+
+Trước khi kết thúc, chạy build và các kiểm thử phù hợp, sửa lỗi phát hiện được rồi báo cáo:
+
+- Những phần đã hoàn thành.
+- Cách chạy website.
+- Cách thực hiện kịch bản demo.
+- Kết quả kiểm thử thực tế.
+- Những phần còn thiếu hoặc cần cấu hình thêm.
+
+Hãy bắt đầu triển khai website Gamer 2 Gamer theo toàn bộ yêu cầu trên.
