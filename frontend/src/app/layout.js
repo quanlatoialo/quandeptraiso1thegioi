@@ -1,5 +1,6 @@
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
+import { ThemeProvider } from '@/context/ThemeContext';
 import DemoBanner from '@/components/DemoBanner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,7 +14,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="vi" className="dark">
+    <html lang="vi" className="dark" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -22,13 +23,15 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#06090e] text-gray-100 flex flex-col min-h-screen antialiased selection:bg-purple-600 selection:text-white">
-        <AuthProvider>
-          <DemoBanner />
-          <Header />
-          <main className="flex-1 w-full">{children}</main>
-          <Footer />
-        </AuthProvider>
+      <body className="bg-[#06090e] text-gray-100 flex flex-col min-h-screen antialiased selection:bg-purple-600 selection:text-white transition-colors duration-300">
+        <ThemeProvider>
+          <AuthProvider>
+            <DemoBanner />
+            <Header />
+            <main className="flex-1 w-full">{children}</main>
+            <Footer />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

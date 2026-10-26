@@ -7,6 +7,13 @@
   --border-color: rgba(255, 255, 255, 0.08);
 }
 
+html.light {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card-bg: #ffffff;
+  --border-color: rgba(15, 23, 42, 0.1);
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);
@@ -19,6 +26,15 @@ body {
     radial-gradient(ellipse 70% 50% at 100% 50%, rgba(59, 130, 246, 0.06), transparent),
     radial-gradient(ellipse 70% 50% at 0% 70%, rgba(16, 185, 129, 0.05), transparent);
   background-attachment: fixed;
+}
+
+html.light body {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  background-image:
+    radial-gradient(ellipse 90% 60% at 50% -20%, rgba(139, 92, 246, 0.10), transparent),
+    radial-gradient(ellipse 70% 50% at 100% 50%, rgba(59, 130, 246, 0.06), transparent),
+    radial-gradient(ellipse 70% 50% at 0% 70%, rgba(16, 185, 129, 0.05), transparent);
 }
 
 h1, h2, h3, h4, .font-heading {
@@ -87,7 +103,7 @@ h1, h2, h3, h4, .font-heading {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #06090e;
+  background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
@@ -95,4 +111,204 @@ h1, h2, h3, h4, .font-heading {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #334155;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* =========================================================
+   LIGHT MODE THEME ADAPTATIONS (html.light)
+   ========================================================= */
+
+/* Surface & Card Backgrounds */
+html.light .bg-\[\#06090e\],
+html.light .bg-\[\#06090e\]\/85 {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+html.light .bg-\[\#05070c\] {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-\[\#080d18\],
+html.light .bg-\[\#080d18\]\/90,
+html.light .bg-\[\#090d16\],
+html.light .bg-\[\#090d16\]\/90,
+html.light .bg-\[\#0a0f1d\],
+html.light .bg-\[\#0a0f1d\]\/95,
+html.light .bg-\[\#0c1220\],
+html.light .bg-\[\#0c1220\]\/80,
+html.light .bg-\[\#0d131f\],
+html.light .bg-\[\#0d131f\]\/90,
+html.light .bg-\[\#0e1424\],
+html.light .bg-\[\#111722\],
+html.light .bg-gray-900,
+html.light .bg-gray-900\/80,
+html.light .bg-gray-900\/60,
+html.light .bg-gray-900\/50,
+html.light .bg-gray-900\/40,
+html.light .bg-gray-950 {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-gray-800,
+html.light .bg-gray-800\/70,
+html.light .bg-gray-800\/60,
+html.light .bg-gray-800\/50,
+html.light .bg-gray-800\/40 {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .hover\:bg-gray-800:hover,
+html.light .hover\:bg-gray-800\/70:hover,
+html.light .hover\:bg-gray-700:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Subtle Translucent White Surface Overlays -> Slate Overlays in Light Mode */
+html.light .bg-white\/\[0\.02\],
+html.light .bg-white\/\[0\.03\],
+html.light .bg-white\/\[0\.04\],
+html.light .bg-white\/\[0\.05\] {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light .hover\:bg-white\/\[0\.06\]:hover,
+html.light .hover\:bg-white\/\[0\.08\]:hover,
+html.light .hover\:bg-white\/\[0\.1\]:hover {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Dark Gradient Surfaces -> Crisp Light Gradient Surfaces */
+html.light [class*="from-[#0d121f]"],
+html.light [class*="from-[#0e1424]"],
+html.light [class*="from-[#0f172a]"],
+html.light [class*="from-[#101729]"],
+html.light [class*="from-[#111728]"],
+html.light [class*="from-[#17122e]"] {
+  --tw-gradient-from: #ffffff !important;
+  --tw-gradient-via: #f8fafc !important;
+  --tw-gradient-to: #f1f5f9 !important;
+}
+
+html.light [class*="via-[#0c111f]"],
+html.light [class*="via-[#101428]"],
+html.light [class*="via-[#161226]"],
+html.light [class*="via-[#16122c]"] {
+  --tw-gradient-via: #f5f3ff !important;
+}
+
+html.light [class*="to-[#070a12]"],
+html.light [class*="to-[#090d16]"],
+html.light [class*="to-[#0b101c]"],
+html.light [class*="to-[#0c1220]"],
+html.light [class*="to-[#0c1824]"],
+html.light [class*="to-[#0d121f]"],
+html.light [class*="to-[#0d1322]"],
+html.light [class*="to-[#131f37]"] {
+  --tw-gradient-to: #f8fafc !important;
+}
+
+html.light .luxury-glass {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+/* Borders */
+html.light .border-white\/\[0\.05\],
+html.light .border-white\/\[0\.06\],
+html.light .border-white\/\[0\.08\],
+html.light .border-white\/10,
+html.light .border-white\/15,
+html.light .border-white\/20,
+html.light .border-gray-800,
+html.light .border-gray-800\/60,
+html.light .border-gray-800\/80,
+html.light .border-gray-700 {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Typography & Text Colors */
+html.light .text-white:not(.glow-btn-purple):not(.glow-btn-gold):not(.text-transparent):not([class*="bg-purple-6"]):not([class*="bg-purple-5"]):not([class*="bg-indigo-6"]):not([class*="bg-emerald-6"]):not([class*="bg-emerald-5"]):not([class*="bg-red-6"]):not([class*="bg-amber-6"]):not([class*="bg-blue-6"]):not([class*="from-purple-"]):not([class*="from-emerald-"]):not([class*="from-red-"]) {
+  color: #0f172a !important;
+}
+
+html.light .hover\:text-white:hover:not(.glow-btn-purple):not(.glow-btn-gold):not([class*="bg-purple-6"]) {
+  color: #0f172a !important;
+}
+
+html.light .text-gray-100,
+html.light .text-gray-200 {
+  color: #1e293b !important;
+}
+
+html.light .text-gray-300 {
+  color: #334155 !important;
+}
+
+html.light .text-gray-400 {
+  color: #475569 !important;
+}
+
+html.light .text-gray-500 {
+  color: #64748b !important;
+}
+
+/* Accent text contrast boosts in Light Mode */
+html.light .text-purple-200,
+html.light .text-purple-300,
+html.light .text-purple-300\/90 {
+  color: #6d28d9 !important;
+}
+
+html.light .text-amber-300 {
+  color: #b45309 !important;
+}
+
+html.light .text-emerald-300,
+html.light .text-emerald-400 {
+  color: #059669 !important;
+}
+
+html.light .text-cyan-300,
+html.light .text-cyan-400 {
+  color: #0284c7 !important;
+}
+
+html.light .bg-purple-950\/40,
+html.light .bg-purple-950\/60,
+html.light .bg-purple-950\/80 {
+  background-color: rgba(139, 92, 246, 0.12) !important;
+}
+
+html.light .bg-amber-950\/20,
+html.light .bg-amber-950\/40 {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+}
+
+/* Price gradient in OfferCard for Light Mode */
+html.light .from-amber-300.to-amber-100 {
+  --tw-gradient-from: #d97706 !important;
+  --tw-gradient-to: #b45309 !important;
+}
+
+/* Shadows in Light Mode */
+html.light .shadow-black\/40,
+html.light .shadow-purple-950\/30,
+html.light .shadow-purple-950\/40,
+html.light .shadow-emerald-950\/20,
+html.light .shadow-amber-950\/30,
+html.light .shadow-amber-950\/40 {
+  --tw-shadow-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Inputs, Selects, Textareas in Light Mode */
+html.light input,
+html.light select,
+html.light textarea {
+  color: #0f172a;
 }

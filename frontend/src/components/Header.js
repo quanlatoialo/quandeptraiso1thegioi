@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '@/context/ThemeContext';
 import { formatEUR } from '@/lib/utils';
 import {
   GamepadIcon,
@@ -12,11 +13,14 @@ import {
   UserIcon,
   ShieldIcon,
   ChevronDownIcon,
+  SunIcon,
+  MoonIcon,
 } from './Icons';
 
 export default function Header() {
   const router = useRouter();
   const { user, wallet, unreadCount, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
@@ -120,6 +124,27 @@ export default function Header() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
+          {/* Theme Toggle (Sáng / Tối) */}
+          <button
+            onClick={toggleTheme}
+            type="button"
+            aria-label={theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'}
+            title={theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'}
+            className="theme-toggle-btn relative flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 text-gray-300 hover:text-white transition-all cursor-pointer group"
+          >
+            {theme === 'dark' ? (
+              <>
+                <SunIcon className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
+                <span className="hidden xl:inline text-xs font-semibold text-amber-300">Sáng</span>
+              </>
+            ) : (
+              <>
+                <MoonIcon className="w-4 h-4 text-indigo-600 group-hover:-rotate-12 transition-transform duration-300" />
+                <span className="hidden xl:inline text-xs font-semibold text-indigo-700">Tối</span>
+              </>
+            )}
+          </button>
+
           {/* Become a Seller / Booster */}
           {(!user || (!user.roles?.includes('seller') && !user.roles?.includes('booster'))) && (
             <Link
